@@ -14,11 +14,11 @@ class CitiesTableSeeder extends Seeder
      */
     public function run(): void
     {
+        //Fetch Rest API
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . config('rajaongkir.api_key'),
-        ])->get(config('rajaongkir.base_url') . '/cities');
-        dd($response);
-        $cities = $response->json()['data'];
+            //api key rajaongkir
+            'key' => config('rajaongkir.api_key'),
+        ])->get('https://api.rajaongkir.com/starter/city');
 
         //loop data from Rest API
         foreach($response['rajaongkir']['results'] as $city) {
