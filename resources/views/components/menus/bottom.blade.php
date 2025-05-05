@@ -1,4 +1,4 @@
-<div class="container fixed-bottom mb-5">
+<div class="container fixed-bottom mb-5 d-block d-md-none">
     <div class="row justify-content-center">
         <div class="col-12 col-md-6">
             <div class="text-center bg-white rounded-menu p-1 shadow-sm">

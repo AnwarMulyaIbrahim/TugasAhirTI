@@ -9,7 +9,7 @@ use Filament\Widgets\ChartWidget;
 
 class TransactionChart extends ChartWidget
 {
-    protected static ?string $heading = 'Transactions (30 Days)';
+    protected static ?string $heading = 'Grafik Pendapatan Bulan Ini';
     protected int | string | array $columnSpan = 'full';
 
     protected function getData(): array

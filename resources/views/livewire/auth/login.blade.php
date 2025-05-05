@@ -2,13 +2,13 @@
 
     <div class="row justify-content-center mt-0">
         <div class="col-md-6">
-            <div class="bg-white rounded-bottom-custom shadow-sm p-3 sticky-top mb-5">
+            {{-- <div class="bg-white rounded-bottom-custom shadow-sm p-3 sticky-top mb-5">
                 <div class="d-flex justify-content-start">
                     <div>
                         <x-buttons.back />
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="card border-0 shadow-sm rounded mt-80">
                 <div class="card-body p-5">
