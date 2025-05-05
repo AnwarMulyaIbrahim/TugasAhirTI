@@ -90,11 +90,8 @@ Tiwivirgianti - Catering
                 </div>
 
             </div>
-        </div>
-    </div>
-
-    @if(count($carts) > 0)
-        <div class="container fixed-total">
+            @if(count($carts) > 0)
+        <div class="container ">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6">
                     <div class="card rounded shadow-sm border-0 mb-5 ">
@@ -115,5 +112,9 @@ Tiwivirgianti - Catering
             </div>
         </div>
     @endif
+        </div>
+    </div>
+
+
 
 </div>

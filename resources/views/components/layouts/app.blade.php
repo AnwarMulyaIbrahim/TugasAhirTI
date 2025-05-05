@@ -25,7 +25,7 @@
 <div class="d-flex">
 
     <!-- Sidebar -->
-    <div class="sidebar d-none d-md-block bg-white p-3 shadow h-100" style="width: 250px; min-height: 100vh;">
+    <div class="sidebar d-none d-md-block bg-white p-3 shadow h-max" style="width: 250px; min-height: 100vh;">
         <ul class="nav flex-column">
             <li class="nav-item mb-3">
                 <a href="/" class="nav-link text-dark fw-bold"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-house"
@@ -60,11 +60,6 @@
                 <img src="{{ asset('images/logo33.png') }}" alt="Logo" style="width: 100%;">
             </li>
         </ul>
-        <br><br><br><br><br>
-        <br><br>
-        <div class="text-center text-muted medium mt-3 ">
-            © {{ now()->year }} TiwiVirgianti
-        </div>
     </div>
 
     <!-- Konten Utama -->
