@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('invoice');
             $table->integer('weight');
             $table->text('address');
-            $table->string('no_hp');
             $table->decimal('total', 8, 2);
             $table->enum('status', ['pending', 'success', 'expired', 'failed'])->default('pending');
             $table->string('snap_token')->nullable();

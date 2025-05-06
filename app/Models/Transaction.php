@@ -19,7 +19,6 @@ class Transaction extends Model
         'invoice',
         'weight',
         'address',
-        'no_hp',
         'total',
         'status',
         'snap_token',

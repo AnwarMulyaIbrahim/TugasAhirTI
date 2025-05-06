@@ -28,6 +28,12 @@
                                     <td>{{ $transaction->created_at }}</td>
                                 </tr>
                                 <tr>
+                                    <td>No. HP</td>
+                                    <td>:</td>
+                                    <td>{{ $transaction->customer->no_hp }}</td>
+                                </tr>
+                                <tr>
+
                                     <td>Status</td>
                                     <td>:</td>
                                     <td>
