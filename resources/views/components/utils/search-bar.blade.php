@@ -1,7 +1,7 @@
 <div class="row justify-content-center mt-4">
     <div class="col-md-6">
         <div class="row">
-            <div class="col-10 col-md-10">
+            <div class="">
                 <div class="text-center">
                     <form action="/products" method="GET">
                         <div class="input-group mb-3 rounded">
@@ -10,7 +10,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-2 col-md-2">
+            {{-- <div class="col-2 col-md-2">
                 <div class="text-end">
                     <a href="/login" wire:navigate>
                         @php
@@ -21,7 +21,7 @@
                         <img src="{{ $image }}" class="object-fit-cover rounded-circle" height="45" />
                     </a>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

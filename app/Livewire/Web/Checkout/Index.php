@@ -12,6 +12,7 @@ class Index extends Component
     public $address;
     public $province_id;
     public $city_id;
+    public $district_id;
 
     public $loading  = false;
     public $showCost = false;
@@ -54,7 +55,6 @@ class Index extends Component
         ];
     }
 
-
     /**
      * changeCourier
      *
@@ -87,27 +87,25 @@ class Index extends Component
     public function CheckOngkir()
     {
         try {
-
-            // Ambil data cart
             $cartData = $this->getCartsData();
 
-            // Fetch Rest API
             $response = Http::withHeaders([
-                'key' => config('rajaongkir.api_key')
-            ])->post('https://api.rajaongkir.com/starter/cost', [
-                'origin'      => 109, // ID kota Cirebon
-                'destination' => $this->city_id,
-                'weight'      => $cartData['totalWeight'],
-                'courier'     => $this->selectCourier,
-            ]);
+                'Accept' => 'application/json',
+                'key'    => config('rajaongkir.api_key'),
+            ])->withOptions([
+                'query' => [
+                    'origin'      => 1188,
+                    'destination' => $this->district_id,
+                    'weight'      => $cartData['totalWeight'],
+                    'courier'     => $this->selectCourier,
+                ]
+            ])->post('https://rajaongkir.komerce.id/api/v1/calculate/domestic-cost');
 
-            // Process costs (optional: store in a variable)
-            $this->costs = $response['rajaongkir']['results'][0]['costs'];
+            $this->costs = $response->json()['data'];
+
         } catch (\Exception $e) {
-            // Handle error (optional: set an error message)
-            session()->flash('error', 'Gagal mengambil ongkir.');
+            session()->flash('error', 'Gagal mengambil ongkir: ' . $e->getMessage());
         } finally {
-            // Always update loading and cost visibility
             $this->loading = false;
             $this->showCost = true;
         }
@@ -145,6 +143,7 @@ class Index extends Component
         $totalPrice     = $cartData['totalPrice'];
         $totalWeight    = $cartData['totalWeight'];
 
+        // Kirim ke view Livewire
         return view('livewire.web.checkout.index', compact('provinces', 'totalPrice', 'totalWeight'));
     }
 }

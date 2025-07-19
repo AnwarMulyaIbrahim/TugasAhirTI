@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use Carbon\Carbon;
 use Flowframe\Trend\Trend;
 use App\Models\Transaction;
 use Flowframe\Trend\TrendValue;
@@ -14,11 +15,15 @@ class TransactionChart extends ChartWidget
 
     protected function getData(): array
     {
-        // Ambil data transaksi per bulan untuk tahun ini
-        $data = Trend::query(Transaction::where('status', 'success'))
+        // set data untuk grafik
+        $startDate = Carbon::createFromFormat('Y-m-d', '2025-07-01');
+        $endDate = Carbon::createFromFormat('Y-m-d', '2025-07-30');
+
+        // Ambil data transaksi per bulan
+        $data = Trend::query(Transaction::where('status', 'pending'))
             ->between(
-                start: now()->startOfMonth(),
-                end: now()->endOfMonth()
+                start: $startDate,
+                end: $endDate
             )
             ->perDay() // Hitung data per bulan
             ->sum('total'); // Hitung total transaksi per bulan berdasarkan 'total'
@@ -38,6 +43,6 @@ class TransactionChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'line';
+        return 'bar';
     }
 }

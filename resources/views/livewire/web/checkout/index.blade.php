@@ -29,12 +29,12 @@ Checkout - TiwiVirgianti - Catering
                                 <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
                                 <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                             </svg>
-                            Shipping Information
+                            Informasi Pengiriman
                         </h5>
                         <hr />
 
                         <select class="form-select rounded mb-3" wire:model.live="province_id">
-                            <option value="">-- Select Province --</option>
+                            <option value="">-- Pilih Provinsi --</option>
                             @foreach ($provinces as $province)
                                 <option value="{{ $province->id }}">
                                     {{ $province->name }}
@@ -43,20 +43,27 @@ Checkout - TiwiVirgianti - Catering
                         </select>
 
                         <select class="form-select rounded mb-3" wire:model.live="city_id" wire:key="{{ $province_id }}">
-                            <option value="">-- Select City --</option>
+                            <option value="">-- Pilih Kota --</option>
                             @foreach (\App\Models\City::where('province_id', $province_id)->get() as $city)
                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
                             @endforeach
                         </select>
 
+                        <select class="form-select rounded mb-3" wire:model.live="district_id" wire:key="{{ $city_id }}">
+                            <option value="">-- Select District --</option>
+                            @foreach (\App\Models\District::where('city_id', $city_id)->get() as $district)
+                                <option value="{{ $district->id }}">{{ $district->name }}</option>
+                            @endforeach
+                        </select>
+
                         <div class="mb-3">
-                            <textarea class="form-control rounded" wire:model.live="address" rows="3" placeholder="Address:  Jl. Kebon Jeruk No. 1, Jakarta Barat"></textarea>
+                            <textarea class="form-control rounded" wire:model.live="address" rows="3" placeholder="Jl. Kesambi No.202, Drajat, Kec. Kesambi, 45133"></textarea>
                         </div>
 
                     </div>
                 </div>
 
-                @if($city_id)
+                @if($district_id)
                 <div class="card rounded shadow-sm border-0 mb-5">
                     <div class="card-body">
 
@@ -68,16 +75,33 @@ Checkout - TiwiVirgianti - Catering
                         </h6>
                         <hr />
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="courier" id="inlineRadio1" wire:click="changeCourier('jne')">
-                            <label class="form-check-label" for="inlineRadio1">JNE</label>
+                            <input class="form-check-input" type="radio" name="courier" id="courier_sicepat" wire:click="changeCourier('sicepat')">
+                            <label class="form-check-label" for="courier_sicepat">SICEPAT</label>
                         </div>
+
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="courier" id="inlineRadio2" wire:click="changeCourier('pos')">
-                            <label class="form-check-label" for="inlineRadio2">POS</label>
+                            <input class="form-check-input" type="radio" name="courier" id="courier_jnt" wire:click="changeCourier('jnt')">
+                            <label class="form-check-label" for="courier_jnt">J&T EXPRESS</label>
                         </div>
+
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="courier" id="inlineRadio3" wire:click="changeCourier('tiki')">
-                            <label class="form-check-label" for="inlineRadio3">TIKI</label>
+                            <input class="form-check-input" type="radio" name="courier" id="courier_ninja" wire:click="changeCourier('ninja')">
+                            <label class="form-check-label" for="courier_ninja">NINJA EXPRESS</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="courier" id="courier_jne" wire:click="changeCourier('jne')">
+                            <label class="form-check-label" for="courier_jne">JNE</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="courier" id="courier_pos" wire:click="changeCourier('pos')">
+                            <label class="form-check-label" for="courier_pos">POS</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="courier" id="courier_tiki" wire:click="changeCourier('tiki')">
+                            <label class="form-check-label" for="courier_tiki">TIKI</label>
                         </div>
 
                         <div class="justify-content-center mt-3 mb-3 text-center">
@@ -100,8 +124,8 @@ Checkout - TiwiVirgianti - Catering
                             @foreach($costs ?? [] as $cost)
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label font-weight-normal me-2">
-                                    <input class="form-check-input" type="radio" name="cost" wire:click="getServiceAndCost('{{ $cost['cost'][0]['value'] }}|{{ $cost['service'] }}')" />
-                                    <span class="ms-1">{{ $cost['service'] }} - Rp {{ number_format($cost['cost'][0]['value'], 0, ',', '.') }}</span>
+                                    <input class="form-check-input" type="radio" name="cost" wire:click="getServiceAndCost('{{ $cost['cost'] }}|{{ $cost['service'] }}')" />
+                                    <span class="ms-1">{{ $cost['service'] }} - Rp {{ number_format($cost['cost'], 0, ',', '.') }}</span>
                                 </label>
                             </div>
                             @endforeach
@@ -136,12 +160,18 @@ Checkout - TiwiVirgianti - Catering
                                 </div>
                                 <div class="d-flex justify-content-between mt-3">
                                     <div>
-                                        <h5 class="fw-bold mb-0">Grand Total</h5>
+                                        <h5 class="fw-bold mb-0">Total</h5>
                                     </div>
                                     <div class="ms-auto">
                                         <h5 class="fw-bold mb-0">Rp. {{ number_format($grandTotal) }}</h5>
                                     </div>
                                 </div>
+                                {{-- <div class="d-flex justify-content-between mt-3">
+                                    <div>
+                                        <h6 class="mb-0">*Harap melakukan pemesanan minimum 3 hari sebelumnya. </h6>
+                                    </div>
+
+                                </div> --}}
                                 @if($selectCost > 0)
 
                             <hr style="border: dotted 1px #e92715;">
@@ -150,6 +180,7 @@ Checkout - TiwiVirgianti - Catering
                                 key="{{ now() }}"
                                 :province_id="$province_id"
                                 :city_id="$city_id"
+                                :district_id="$district_id"
                                 :address="$address"
                                 :grandTotal="$grandTotal"
                                 :totalWeight="$totalWeight"

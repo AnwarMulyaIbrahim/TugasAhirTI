@@ -62,9 +62,9 @@ class TransactionResource extends Resource
             // Tables\Actions\EditAction::make(),
         ])
         ->bulkActions([
-            // Tables\Actions\BulkActionGroup::make([
-            //     Tables\Actions\DeleteBulkAction::make(),
-            // ]),
+            Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]),
         ]);
     }
 
@@ -82,4 +82,10 @@ class TransactionResource extends Resource
             'view'  => Pages\ViewTransaction::route('/{record}'),
         ];
     }
+
+    public static function getEloquentQuery(): Builder
+{
+    return parent::getEloquentQuery()->orderByDesc('created_at');
+}
+
 }

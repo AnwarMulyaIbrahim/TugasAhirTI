@@ -35,7 +35,7 @@ class Index extends Component
     public function rules()
     {
         return [
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image',
             'name'  => 'required',
             'no_hp'  => 'required',
             'email' => 'required|email|unique:customers,email,'. auth()->guard('customer')->user()->id,
@@ -70,12 +70,14 @@ class Index extends Component
                 'email' => $this->email,
             ]);
         }
+        dd($profile);
 
         // Kirim pesan sukses
         session()->flash('success', 'Update Profil Berhasil');
 
         // redirect to the desired page
         return $this->redirect('/account/my-profile', navigate: true);
+
     }
 
     public function render()

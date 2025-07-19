@@ -55,7 +55,9 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image')->disk('public')->circular(),
+                Tables\Columns\ImageColumn::make('image')
+                    ->url(fn($record) => asset('public/' . $record->image))
+                    ->circular(),
                 Tables\Columns\TextColumn::make('name')->searchable(),
             ])
             ->filters([

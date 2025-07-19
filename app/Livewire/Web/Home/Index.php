@@ -45,7 +45,7 @@ class Index extends Component
         return view('livewire.web.home.index', [
 
             //get sliders
-            'sliders' => Slider::latest()->get(),
+            'sliders' => Slider::oldest()->get(),
 
             //get categories
             'categories' => Category::latest()->get(),

@@ -10,7 +10,7 @@ class StatsOverview extends BaseWidget
 {
     protected function getStats(): array
     {
-        $totalTransaction = Transaction::where('status', 'success')->sum('total');
+        $totalTransaction = Transaction::where('status', 'pending')->sum('total');
         $totalOrder = Transaction::count();
         $pendingCount = Transaction::where('status', 'pending')->count();
 

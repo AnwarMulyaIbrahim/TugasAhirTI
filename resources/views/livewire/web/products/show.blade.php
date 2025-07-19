@@ -42,11 +42,11 @@
                                     d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                             </svg>
                             <span class="fw-bold">{{ number_format($product->ratings_avg_rating, 1) }}
-                                ({{ $product->ratings_count }} Reviews )</span>
+                                ({{ $product->ratings_count }} Ulasan )</span>
                         </div>
                     </div>
 
-                    <h5 class="mt-3">Description</h5>
+                    <h5 class="mt-3">Deskripsi Produk</h5>
                     <p>
                         {!! $product->description !!}
                     </p>
@@ -63,7 +63,7 @@
                     <path
                         d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
                 </svg>
-                Rating & Review
+                Rating & Ulasan
             </h6>
             <!-- button add to cart -->
             <div class="row mt-3">

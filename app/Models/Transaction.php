@@ -16,6 +16,7 @@ class Transaction extends Model
         'shipping_id',
         'province_id',
         'city_id',
+        'district_id',
         'invoice',
         'weight',
         'address',
@@ -48,5 +49,15 @@ class Transaction extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+     /**
+     * district
+     *
+     * @return void
+     */
+    public function district()
+    {
+        return $this->belongsTo(District::class);
     }
 }

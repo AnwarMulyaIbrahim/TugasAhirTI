@@ -105,7 +105,7 @@ Tiwivirgianti - Catering
                                 </div>
                             </div>
                             <hr style="border: dotted 1px #e92715;">
-                            <a href="/checkout" wire:navigate class="btn btn-orange-2 rounded border-0 shadow-sm w-100">Process to Checkout</a>
+                            <a href="/checkout" wire:navigate class="btn btn-orange-2 rounded border-0 shadow-sm w-100">Proses Pesanan</a>
                         </div>
                     </div>
                 </div>

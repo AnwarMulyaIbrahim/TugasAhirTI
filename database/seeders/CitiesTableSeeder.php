@@ -15,21 +15,22 @@ class CitiesTableSeeder extends Seeder
     public function run(): void
     {
         //Fetch Rest API
-        $response = Http::withHeaders([
-            //api key rajaongkir
-            'key' => config('rajaongkir.api_key'),
-        ])->get('https://api.rajaongkir.com/starter/city');
+       $response = Http::withHeaders([
+    'key' => config('rajaongkir.api_key'),
+])->get('https://api.rajaongkir.com/api/v2/city'); // Perhatikan endpoint-nya
 
-        //loop data from Rest API
-        foreach($response['rajaongkir']['results'] as $city) {
+if ($response->successful() && isset($response['data'])) {
+    foreach ($response['data'] as $city) {
+        City::create([
+            'id'           => $city['city_id'],
+            'province_id'  => $city['province_id'],
+            'name'         => $city['city_name'] . ' - (' . $city['type'] . ')',
+            'postal_code'  => $city['postal_code'],
+        ]);
+    }
+} else {
+    dd($response->json()); // Lihat isi response jika gagal
+}
 
-            //insert ke table "cities"
-            City::create([
-                'id'          => $city['city_id'],
-                'province_id' => $city['province_id'],
-                'name'        => $city['city_name'] . ' - ' . '('. $city['type'] .')',
-            ]);
-
-        }
     }
 }

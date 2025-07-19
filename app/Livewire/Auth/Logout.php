@@ -20,7 +20,7 @@ class Logout extends Component
         session()->flash('success', 'Logout Berhasil');
 
         // redirect
-        return $this->redirect('/login', navigate: true);
+        return $this->redirect('/', navigate: true);
     }
 
     public function render()

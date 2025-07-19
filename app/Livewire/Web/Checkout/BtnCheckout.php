@@ -12,6 +12,7 @@ class BtnCheckout extends Component
 {
     public $province_id;
     public $city_id;
+    public $district_id;
     public $address;
 
     public $selectCourier;
@@ -58,7 +59,7 @@ class BtnCheckout extends Component
         $customer = auth()->guard('customer')->user();
 
         // Validasi awal
-        if (!$customer || !$this->province_id || !$this->city_id || !$this->address || !$this->grandTotal) {
+        if (!$customer || !$this->province_id || !$this->city_id || !$this->district_id || !$this->address || !$this->grandTotal) {
             session()->flash('error', 'Data tidak lengkap. Silakan periksa kembali.');
             return;
         }
@@ -68,13 +69,19 @@ class BtnCheckout extends Component
                 // Buat kode invoice
                 $invoice = 'INV-' . mt_rand(1000, 9999);
 
+                $provinceName = \App\Models\Province::find($this->province_id)->name ?? '';
+                $cityName = \App\Models\City::find($this->city_id)->name ?? '';
+                $districtName = \App\Models\District::find($this->district_id)->name ?? '';
+                $fullAddress = "{$this->address}, {$districtName}, {$cityName}, {$provinceName}";
+
                 // Buat transaksi
                 $transaction = Transaction::create([
                     'customer_id' => $customer->id,
                     'invoice'     => $invoice,
                     'province_id' => $this->province_id,
                     'city_id'     => $this->city_id,
-                    'address'     => $this->address,
+                    'district_id' => $this->district_id,
+                    'address'     => $fullAddress,
                     'weight'      => $this->totalWeight,
                     'total'       => $this->grandTotal,
                     'status'      => 'PENDING',
@@ -149,7 +156,6 @@ class BtnCheckout extends Component
             // Flash session dan redirect
             session()->flash('success', 'Silahkan lakukan pembayaran untuk melanjutkan proses checkout.');
             return $this->redirect('/account/my-orders/' . $this->response['snap_token'], navigate: true);
-
         } catch (\Exception $e) {
             // Tangani error
             session()->flash('error', 'Terjadi kesalahan saat memproses checkout. Silakan coba lagi.');
