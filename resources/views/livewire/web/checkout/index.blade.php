@@ -50,7 +50,7 @@ Checkout - TiwiVirgianti - Catering
                         </select>
 
                         <select class="form-select rounded mb-3" wire:model.live="district_id" wire:key="{{ $city_id }}">
-                            <option value="">-- Select District --</option>
+                            <option value="">-- Pilih Kecamatan --</option>
                             @foreach (\App\Models\District::where('city_id', $city_id)->get() as $district)
                                 <option value="{{ $district->id }}">{{ $district->name }}</option>
                             @endforeach
@@ -166,12 +166,12 @@ Checkout - TiwiVirgianti - Catering
                                         <h5 class="fw-bold mb-0">Rp. {{ number_format($grandTotal) }}</h5>
                                     </div>
                                 </div>
-                                {{-- <div class="d-flex justify-content-between mt-3">
+                                <div class="d-flex justify-content-between mt-3">
                                     <div>
                                         <h6 class="mb-0">*Harap melakukan pemesanan minimum 3 hari sebelumnya. </h6>
                                     </div>
 
-                                </div> --}}
+                                </div>
                                 @if($selectCost > 0)
 
                             <hr style="border: dotted 1px #e92715;">

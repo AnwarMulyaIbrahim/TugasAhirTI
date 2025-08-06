@@ -3,6 +3,6 @@
     @if ($loading)
         Processing
     @else
-        Process to Payment
+        Buat Pesanan
     @endif
 </button>

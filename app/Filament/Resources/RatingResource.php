@@ -47,7 +47,7 @@ public static function canCreate(): bool
         return $table
         ->columns([
             Tables\Columns\TextColumn::make('customer.name')->searchable(),
-            Tables\Columns\TextColumn::make('product.title')->searchable(),
+            Tables\Columns\TextColumn::make('product.name')->searchable(),
             Tables\Columns\TextColumn::make('rating'),
             Tables\Columns\TextColumn::make('review'),
             Tables\Columns\TextColumn::make('created_at')

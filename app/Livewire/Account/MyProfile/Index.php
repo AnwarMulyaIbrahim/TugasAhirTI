@@ -23,6 +23,7 @@ class Index extends Component
     public function mount()
     {
         $this->name = auth()->guard('customer')->user()->name;
+        $this->image = auth()->guard('customer')->user()->image;
         $this->no_hp = auth()->guard('customer')->user()->no_hp;
         $this->email = auth()->guard('customer')->user()->email;
     }
@@ -35,7 +36,7 @@ class Index extends Component
     public function rules()
     {
         return [
-            'image' => 'nullable|image',
+            'image' => 'required|image',
             'name'  => 'required',
             'no_hp'  => 'required',
             'email' => 'required|email|unique:customers,email,'. auth()->guard('customer')->user()->id,
@@ -70,7 +71,7 @@ class Index extends Component
                 'email' => $this->email,
             ]);
         }
-        dd($profile);
+        // dd($profile);
 
         // Kirim pesan sukses
         session()->flash('success', 'Update Profil Berhasil');

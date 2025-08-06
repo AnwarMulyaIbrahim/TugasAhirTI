@@ -10,13 +10,21 @@ use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Infolists\Components\Grid;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class ViewTransaction extends ViewRecord
 {
     protected static string $resource = TransactionResource::class;
+    public static function getRecordQuery(): Builder
+{
+    return parent::getRecordQuery()->with('transactionDetails.product');
+}
+
 
     public function infolist(Infolist $infolist): Infolist
     {
+        // dd($this->record->transactionDetails);
         return $infolist
             ->schema([
 
@@ -31,15 +39,15 @@ class ViewTransaction extends ViewRecord
                             'expired' => 'gray',
                             'failed' => 'danger',
                         }),
-                    TextEntry::make('created_at')->label('Created At'),
+                    TextEntry::make('created_at')->label('Di Pesan'),
                 ])->columns(3),
 
                 // Customer Information
                 Card::make([
-                    TextEntry::make('customer.name')->label('Customer Name'),
-                    TextEntry::make('customer.email')->label('Email Address'),
+                    TextEntry::make('customer.name')->label('Nama Pelanggan'),
+                    TextEntry::make('customer.email')->label('Alamat Email'),
                     TextEntry::make('customer.no_hp')->label('Nomor HP'),
-                    TextEntry::make('address')->label('Address'),
+                    TextEntry::make('address')->label('Alamat'),
                 ])->columns(3),
 
                 // Ongkos Kirim
@@ -54,11 +62,12 @@ class ViewTransaction extends ViewRecord
                     RepeatableEntry::make('TransactionDetails')
                         ->label('Items Details')
                         ->schema([
-                            ImageEntry::make('product.image')->label('Product Image')->circular()->width(100)->height(100),
-                            TextEntry::make('product.title')->label('Product Name'),
+                            ImageEntry::make('product.image')->label('Foto Produk')->circular()->width(100)->height(100),
+                            TextEntry::make('product.title')->label('Nama Produk'),
                             TextEntry::make('qty')->label('Quantity'),
-                            TextEntry::make('price')->label('Price')->numeric(decimalPlaces: 0)->money('IDR', locale: 'id'),
+                            TextEntry::make('price')->label('Harga')->numeric(decimalPlaces: 0)->money('IDR', locale: 'id'),
                         ])
+
                         ->columns(4),
                 ]),
 
@@ -67,7 +76,7 @@ class ViewTransaction extends ViewRecord
                     Grid::make(1)
                         ->schema([
                             TextEntry::make('total')
-                                ->label('Grand Total')
+                                ->label('Total Harga')
                                 ->numeric(decimalPlaces: 0)
                                 ->money('IDR', locale: 'id')
                                 ->size(TextEntry\TextEntrySize::Large)
@@ -77,4 +86,6 @@ class ViewTransaction extends ViewRecord
                 ])
             ]);
     }
+
+
 }

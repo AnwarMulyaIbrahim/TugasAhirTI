@@ -61,7 +61,7 @@
                             </div>
                         @enderror
 
-                        <button class="btn btn-orange-2 rounded" type="submit">Simpan</button>
+                        <button class="btn btn-orange-2 rounded" type="submit">Ubah Profile</button>
                     </form>
 
                 </div>
