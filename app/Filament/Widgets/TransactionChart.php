@@ -22,8 +22,8 @@ class TransactionChart extends ChartWidget
         // Ambil data transaksi per bulan
         $data = Trend::query(Transaction::where('status', 'pending'))
             ->between(
-                start: $startDate,
-                end: $endDate
+                start: now()->startOfMonth(),
+                end: now()->endOfMonth()
             )
             ->perDay() // Hitung data per bulan
             ->sum('total'); // Hitung total transaksi per bulan berdasarkan 'total'
@@ -33,11 +33,11 @@ class TransactionChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Total Transactions',
-                    'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
+                    'data' => $data->map(fn(TrendValue $value) => $value->aggregate),
                     'fill' => true,
                 ],
             ],
-            'labels' => $data->map(fn (TrendValue $value) => $value->date), // Format tanggal untuk label bulan
+            'labels' => $data->map(fn(TrendValue $value) => $value->date), // Format tanggal untuk label bulan
         ];
     }
 

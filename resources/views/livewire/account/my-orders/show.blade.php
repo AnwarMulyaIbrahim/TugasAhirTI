@@ -118,7 +118,7 @@
                                                 <div class="text-start">
                                                     <h6 class="card-title">{{ $item->product->title }}</h6>
                                                 </div>
-                                                @if($transaction->status == 'pending')
+                                                @if($transaction->status == 'success')
                                                     <div class="text-end">
                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#modal-{{ $item->id }}" class="btn-rating me-2 shadow-sm">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
